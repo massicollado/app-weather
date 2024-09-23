@@ -1,0 +1,30 @@
+<h2>Enter a zipcode:</h2>
+<form (ngSubmit)="addZipCode()" [formGroup]="zipCodeForm">
+    <div class="form-group">
+        <label for="zipcode">Zipcode:</label>
+        <input class="form-control"
+               formControlName="zipcode"
+               id="zipcode"
+               pattern="[0-9]{5}"
+               placeholder="Zipcode"
+               required
+               type="text">
+
+        <span *ngIf="zipCodeForm.get('zipcode').hasError('pattern')" class="text-danger">
+      Please enter a valid 5-digit zipcode.
+    </span>
+
+        <span *ngIf="zipCodeForm.get('zipcode').hasError('invalidZipcode')" class="text-danger">
+      Zipcode does not exist.
+    </span>
+        <span *ngIf="zipCodeForm.get('zipcode').hasError('required')" class="text-danger"></span>
+        <span *ngIf="zipCodeForm.get('zipcode').hasError('zipCodeExists')" class="text-danger">
+        Zipcode already exists.
+        </span>
+        <span *ngIf="zipCodeAdded" class="text-success">
+      Zipcode has been added.
+    </span>
+        <div></div>
+    </div>
+    <button class="btn btn-primary" type="submit" [disabled]="!zipCodeForm.valid">Add location</button>
+</form>

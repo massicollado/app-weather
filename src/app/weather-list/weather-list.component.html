@@ -1,0 +1,39 @@
+<div class="container-fluid">
+    <app-zipcode-input></app-zipcode-input>
+    <div>
+        <ng-container *ngFor="let data of weatherData">
+
+
+            <div class="well flex">
+                <div>
+                    <h3>{{ data?.name }}</h3>
+                    <h4>Current conditions: {{ data?.weather[0].description | titlecase }}</h4>
+                    <h4>Temperatures today:</h4>
+                    <p>
+                        Current {{ data?.main.temp }}
+                        - Max {{ data?.main.temp_max }}
+                        - Min {{ data?.main.temp_min }}
+                    </p>
+                    <p><a [routerLink]="['/forecast', data.zip]">Show 5-day forecast for {{ data.name }}</a>
+                    </p>
+                </div>
+                <div>~/Downloads/ng-certification-nkesnc git:[master]
+                    git add .
+                    error: 'main/' does not have a commit checked out
+                    fatal: adding files failed
+                    <button (click)="deleteLocation(data)" class="close">×</button>
+                    <img *ngIf="data.weather[0].main.toLowerCase() === 'mist'"
+                         alt="mist" src="https://www.angulartraining.com/images/weather/snow.png">
+
+                    <img *ngIf="data.weather[0].main.toLowerCase() === 'drizzle'; else defaultImage"
+                         alt="drizzle" src="https://www.angulartraining.com/images/weather/rain.png">
+
+                    <ng-template #defaultImage><img
+                            alt="{{data.weather[0].main.toLowerCase()}}"
+                            src="https://www.angulartraining.com/images/weather/{{data.weather[0].main.toLowerCase()}}.png">
+                    </ng-template>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
